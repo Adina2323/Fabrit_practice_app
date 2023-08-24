@@ -1,0 +1,44 @@
+
+<!--
+  <ul class="heroes">
+    <li *ngFor="let hero of heroes">
+      <a routerLink="/detail/{{hero.id}}">
+        <span class="badge">{{hero.id}}</span> {{hero.name}}
+      </a>
+      <button type="button" class="delete" title="delete hero"
+        (click)="delete(hero)">x</button>
+    </li>
+</ul>
+
+-->
+
+
+
+
+<div class = "heroes-container">
+  <div *ngFor="let hero of heroes">
+      <div class = "hero-item">
+        <div class="hero-card"><img class = "hero-img" [src]=heroLink(hero)    alt="Hero Image">
+          <div class="hero-content">
+            <h1 class="card-header">
+              {{hero.name}}
+            </h1>
+            <p class="card-text">
+              {{hero.description}}
+            </p>
+            <button class="card-button" type="button" routerLink="/detail/{{hero.id}}">
+              See more
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+</div>
+
+<div>
+  <button type = "button" class = "clear" title="add hero" routerLink="/add-hero"
+  >Add Hero</button>
+</div>

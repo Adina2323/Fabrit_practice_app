@@ -1,0 +1,197 @@
+/* HeroesComponent's private CSS styles */
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+@media (max-width: 60em) {
+  body {
+    padding: 3rem;
+  }
+}
+
+@media (max-width: 60em) {
+  .grid {
+    grid-gap: 3rem;
+  }
+}
+
+
+input {
+  display: block;
+  width: 100%;
+  padding: .5rem;
+  margin: 1rem 0;
+  box-sizing: border-box;
+}
+
+body{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 6rem;
+  background-color: #f5f5f5;
+  font-family: "Inter", sans-serif;
+}
+
+.heroes li {
+  position: relative;
+  cursor: pointer;
+}
+
+.heroes li:hover {
+  left: .1em;
+}
+
+.heroes a {
+  color: #333;
+  text-decoration: none;
+  background-color: #FDF0D5;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+}
+
+.heroes-container{
+  display: grid;
+  grid-template-columns:repeat( auto-fill, minmax(400px, 1fr));
+  border: 2px solid #003049;
+  border-radius: 15px;
+  background-color: #589eca;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
+
+}
+
+.card-header{
+  font-size: 2rem;
+  font-weight: bold;
+  color: #C1121F;
+  margin-bottom: 1rem;
+}
+
+.card-button{
+  display: block;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1rem;
+  text-align: center;
+  color: #FDF0D5;
+  background-color: #780000;
+  border: none;
+  border-radius: 0.4rem;
+  transition: 0.2s;
+  cursor: pointer;
+  margin-bottom: -1rem;
+}
+
+
+.card-button:hover {
+  background-color: #9c0d0d;
+}
+
+.card-text{
+  font-size: 1rem;
+  letter-spacing: -1;
+  line-height: 1.7;
+  color: #3d3d3d;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+
+}
+
+.heroes-item h3{
+  font-weight: 500;
+  margin: 0px 0px 5px 0px;
+}
+
+.heroes body{
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-item{
+  overflow: hidden;
+  width: auto;
+  flex-wrap: wrap;
+  border: 2px solid #4d8bff;
+  border-radius: 0.8rem;
+  background-color: #ffffff;
+  padding: 2em;
+  transition: 0.2s;
+  color: #003049;
+  margin: 10px;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+.hero-item:hover {
+  transform: translateY(-0.5%);
+  box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.2);
+}
+
+.hero-content{
+  padding: 1.4rem 1.4rem;
+}
+
+.hero-img{
+  display: block;
+  width: 100%;
+  height: 18rem;
+  object-fit: cover;
+}
+
+.heroes .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #669BBC;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  min-width: 16px;
+  text-align: right;
+  font-weight: bold;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-button {
+ padding: .5rem 1.5rem;
+ font-size: 1rem;
+ margin-bottom: 0.5rem;
+}
+
+.add-button:hover {
+  color: white;
+  background-color: #42545C;
+}
+
+button.delete {
+  position: absolute;
+  left: 210px;
+  top: 5px;
+  background-color: white;
+  color:  #525252;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 1px 10px 3px 10px;
+}
+
+button.delete:hover {
+  background-color: #C1121F;
+  color: white;
+}

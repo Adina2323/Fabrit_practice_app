@@ -1,0 +1,161 @@
+/* HeroDetailComponent's private CSS styles */
+label {
+  color: #435960;
+  font-weight: bold;
+}
+
+input {
+  font-size: 1em;
+  padding: .5rem;
+}
+
+.heroes-container {
+  border: 2px solid #003049;
+  border-radius: 15px;
+  background-color: #589eca;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+
+}
+
+html {
+  height: auto;
+}
+
+body {
+  background-color: #bcdee7;
+  position: fixed;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+h1,
+h2 {
+  font-weight: 400;
+  margin: 0 0 5px 0;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+
+  letter-spacing: 6px;
+
+}
+
+h2 {
+  font-size: medium;
+}
+
+p {
+  margin: 2rem 0 0 0;
+  /*sus dreapta _ _ */
+  font-size: 1rem;
+  color: #003049;
+  font-style: italic;
+}
+
+.profile-card {
+  display: grid;
+  grid-template-columns: 10fr 11fr;
+  gap: 2rem;
+
+  align-items: center;
+
+  overflow: hidden;
+  max-width: 92rem;
+  height: 20%;
+  border: 2px solid #4d8bff;
+  border-radius: 0.8rem;
+  background-color: #ffffff;
+  padding: 2em;
+  transition: 0.2s;
+  color: #003049;
+  margin: 10px;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.profile-card:hover {
+  transform: translateY(-0.5%);
+  box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.2);
+}
+
+.profile-bio {
+
+  background: #FFFFFF;
+  color: #333333;
+  text-align: left;
+
+}
+
+img {
+
+  flex: 3;
+  flex-grow: 1;
+  max-width: 100%;
+  border-radius: 1.2rem;
+
+  display: block;
+  max-height: 40rem;
+  overflow: hidden;
+  flex-wrap: wrap;
+  margin: auto;
+
+
+}
+
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.edit-button {
+  padding: 1.5rem 2.5rem;
+  font-size: 1rem;
+  margin: 2rem 3rem 0rem 0rem;
+  color: #FDF0D5;
+  background-color: #780000;
+  border: none;
+  border-radius: 0.4rem;
+  transition: 0.2s;
+  cursor: pointer;
+
+}
+
+
+.edit-button:hover {
+  background-color: #9c0d0d;
+}
+
+.goback-button {
+  padding: 1.5rem 2.5rem;
+  font-size: 1rem;
+  margin: 2rem 3rem 0rem 0rem;
+  color: #FDF0D5;
+  background-color: #443c3c;
+  border: none;
+  border-radius: 0.4rem;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.goback-button:hover {
+  background-color: #635d5d;
+}
+
+/*
+.add-button {
+  padding: .5rem 1.5rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+ }
+ 
+ .add-button:hover {
+   color: white;
+   background-color: #42545C;
+ }
+ */

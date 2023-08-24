@@ -1,0 +1,86 @@
+
+<div class="heroes-container">
+    <div class="edit-box" *ngIf="hero">
+        <h2>Edit Hero Info</h2>
+            <div class="input-field">
+                <label for="hero-name">Hero name: </label>
+                <input id="hero-name" [(ngModel)]="hero.name">
+            </div>
+
+            <div class="input-field">
+                <label for="hero-description">Hero description: </label>
+                <input id="hero-description" [(ngModel)]="hero.description">
+            </div>
+            
+            <div class="input-field">
+                <label for="hero-health">Hero health: </label>
+                <input id="hero-health" [(ngModel)]="hero.health">
+            </div>
+                
+            <div class="input-field">
+                <label for="hero-basicDamage">Hero Basic Damage: </label>
+                <input id="hero-basicDamage" [(ngModel)]="hero.basicDamage">
+            </div>
+                
+            <div class="input-field">
+                <label for="hero-armour">Hero armour: </label>
+                <input id="hero-armour" [(ngModel)]="hero.armour">
+            </div>
+
+            <div class="input-field">
+                <label for="hero-picture-link">Picture link: </label>
+                <input id="hero-picture-link" [(ngModel)]="hero.heroPicture">
+            </div>
+
+            <button type="button" (click)="goBack()">go back</button>
+            <button type="button" (click)="save()">save</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<div *ngIf="hero">
+
+  <h2>{{hero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{hero.id}}</div>
+
+  <div>
+  <label for="hero-name">Hero name: </label>
+  <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
+  </div>
+
+  <div>
+  <label for="hero-description">Hero description: </label>
+  <input id="hero-description" [(ngModel)]="hero.description" placeholder="descrption">
+  </div>
+
+  <div>
+  <label for="hero-health">Hero health: </label>
+  <input id="hero-health" [(ngModel)]="hero.health">
+  </div>
+  
+  <div>
+  <label for="hero-basicDamage">Hero Basic Damage: </label>
+  <input id="hero-basicDamage" [(ngModel)]="hero.basicDamage">
+  </div>
+  
+  <div>
+  <label for="hero-armour">Hero amrour: </label>
+  <input id="hero-armour" [(ngModel)]="hero.armour">
+  </div>
+  
+
+</div>
+<button type="button" (click)="goBack()">go back</button>
+<button type="button" (click)="save()">save</button>
+-->

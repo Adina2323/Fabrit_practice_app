@@ -1,0 +1,68 @@
+html {
+    height: auto;
+  }
+  body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+  }
+
+.edit-box{
+    max-width: 40%;
+    margin:auto;
+    padding: 2rem;
+    background: #4c0277;
+    border-radius: 2rem;
+    color:rgb(191, 240, 255);
+    transition-duration: 0.5s;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    
+
+}
+.edit-box:hover{
+    background-color: #53006d;
+    transform: translateY(-0.5%);
+    box-shadow: 0 15px 25px rgba(13, 255, 255, 0.6);
+}
+
+.edit-box .input-field{
+    position: relative;
+}
+
+.edit-box .input-field input{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.edit-box .input-field label{
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+h2{
+    margin: 2rem 0 4rem 0 ;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.heroes-container{
+    border-radius: 15px;
+    padding: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+  
