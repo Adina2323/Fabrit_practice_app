@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileReading
+namespace LibraryManager
 {
     internal class Program
     {
         /// <summary>
         /// This method calls the functions for the app to run. 
         /// </summary>
-        static async Task Main()
-        { 
+        /// <param Name="args"></param>
+        static void Main(string[] args)
+        {
             var menu = new Menu();
+            var books = menu.AppStart();
             do
             {
-                await menu.HandleMenu();
-                Console.ReadKey();
+                menu.HandleUserOptions(books);
             } while (true);
+
         }
     }
 }

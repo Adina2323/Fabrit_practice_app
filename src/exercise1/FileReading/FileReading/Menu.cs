@@ -30,7 +30,7 @@ namespace FileReading
         /// <summary>
         /// Handles the cases for each option.
         /// </summary>
-        public void HandleMenu()
+        public async Task HandleMenu()
         {
             ShowMenuOptions();
             var opt = int.Parse(Console.ReadLine());
@@ -38,9 +38,9 @@ namespace FileReading
             {
                 case 1: ReadSync();
                     break;
-                case 2: ReadAsync().Wait();
+                case 2: await ReadAsync();
                     break;
-                case 3: ReadSyncAndAsync().Wait();
+                case 3: await ReadSyncAndAsync();
                     break;
                 case 4: Environment.Exit(0);
                     break;
@@ -68,7 +68,6 @@ namespace FileReading
             stopwatch.Stop();
             Console.WriteLine($"\nThe file was read in: {stopwatch.Elapsed.TotalMilliseconds} miliseconds.\n");
             report.GenerateReport();
-
         }
 
         /// <summary>
@@ -113,7 +112,6 @@ namespace FileReading
             Console.WriteLine($"\nThe file was read synchronous in: {stopwatchSync.Elapsed.TotalMilliseconds} miliseconds and asynchronous in: {stopwatchAsync.Elapsed.TotalMilliseconds} miliseconds.\n");
             var report = new FileReport(fileText, filePath);
             report.GenerateReport();
-
         }
     }
 }

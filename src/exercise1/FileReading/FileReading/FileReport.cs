@@ -14,12 +14,12 @@ namespace FileReading
         /// Property <c>fileText</c> represents the file's contents.
         /// </value>
 
-        string fileText { get; set; }
+        string FileText { get; set; }
 
         /// <value>
         /// Property <c>filePath</c> represents the file's contents.
         /// </value>
-        string filePath { get; set; }
+        string FilePath { get; set; }
 
         /// <summary>
         /// A constructor that initializes the new FileReport to
@@ -29,8 +29,8 @@ namespace FileReading
         /// <param name="filePath"></param>
         public FileReport(string fileText, string filePath)
         {
-            this.filePath = filePath;
-            this.fileText = fileText;
+            FilePath = filePath;
+            FileText = fileText;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace FileReading
         /// </summary>
         public void GenerateReport()
         {
-            Console.WriteLine($"Here is your report for the file on the path:\"{filePath}\"");
+            Console.WriteLine($"Here is your report for the file on the path:\"{FilePath}\"");
             Console.WriteLine($"The number of lines in the file is: {LinesOfTextCount()}");
             Console.WriteLine($"The size file is: {GetSizeOfFile()}");
             Console.WriteLine($"The number of pargraphs is: {GetNumberOfParagraphs()}");
@@ -49,7 +49,6 @@ namespace FileReading
             var longestWords = GetLongestWords();
             Console.WriteLine($"The longest word/s in the file is/are: \"{string.Join(", ", longestWords)}\"");
             Console.WriteLine("Press anything to go back to the menu.");
-
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace FileReading
             var noLines = 0;
 
             // Use Regex.Matches to find all occurrences of the pattern in the text.
-            var matches = Regex.Matches(fileText, pattern);
+            var matches = Regex.Matches(FileText, pattern);
 
             noLines = matches.Count + 1;
             return noLines;
@@ -76,7 +75,7 @@ namespace FileReading
         {
             try
             {
-                var file = new FileInfo(filePath);
+                var file = new FileInfo(FilePath);
                 return file.Length;
             }
             catch (Exception e)
@@ -96,7 +95,7 @@ namespace FileReading
             var pattern = @"(?<=\n\s*\n)";
 
             // Use Regex.Matches to find all occurrences of the pattern in the text.
-            var matches = Regex.Matches(fileText, pattern);
+            var matches = Regex.Matches(FileText, pattern);
 
             return matches.Count;
         }
@@ -107,9 +106,8 @@ namespace FileReading
         /// <returns>An integer with the number of words.</returns>
         public int GetNumberOfWords()
         {
-            var words = fileText.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            var words = FileText.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?', ':', ';', '(', ')', '[', ']', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
             return words.Length;
-
         }
 
         /// <summary>
@@ -118,7 +116,7 @@ namespace FileReading
         /// <returns>An integer with the number of unique words.</returns>
         public int GetNumberOfUniqueWords()
         {
-            var words = fileText.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            var words = FileText.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?', ':', ';', '(', ')', '[', ']', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
             var uniqueWords = new HashSet<string>();
 
             foreach (var word in words)
@@ -138,24 +136,25 @@ namespace FileReading
         public List<string> GetMostFrequentWords()
         {
             var maxFrequency = 0;
-            var words = fileText.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            var words = FileText.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?', ':', ';', '(', ')', '[', ']', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
             var mostFrequentWords = new List<string>();
             var wordFrequency = new Dictionary<string, int>();
 
             foreach (string word in words)
             {
 
-                if (!string.IsNullOrEmpty(word))
+                if (string.IsNullOrEmpty(word))
                 {
+                    continue;
+                }
 
-                    if (wordFrequency.ContainsKey(word))
-                    {
-                        wordFrequency[word]++;
-                    }
-                    else
-                    {
-                        wordFrequency[word] = 1;
-                    }
+                if (wordFrequency.ContainsKey(word))
+                {
+                    wordFrequency[word]++;
+                }
+                else
+                {
+                    wordFrequency[word] = 1;
                 }
             }
 
@@ -183,7 +182,7 @@ namespace FileReading
         /// <returns>A list of strings with the words that are the longest.</returns>
         public List<string> GetLongestWords()
         {
-            var words = fileText.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?', ':', ';', '(', ')', '[', ']', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
+            var words = FileText.Split(new char[] { ' ', '\t', '\n', '\r', '.', ',', '!', '?', ':', ';', '(', ')', '[', ']', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
             var maxLength = 0;
             var longestWords = new List<string>();
 
