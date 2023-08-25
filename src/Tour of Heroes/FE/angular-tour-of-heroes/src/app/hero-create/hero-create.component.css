@@ -1,6 +1,8 @@
 html {
     height: auto;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 
 body {
     margin: 0;
@@ -9,30 +11,29 @@ body {
     background: linear-gradient(#141e30, #243b55);
 }
 
-.edit-box {
+.form-add {
     max-width: 40%;
     margin: auto;
     padding: 2rem;
-    background: #330050;
+    background: #4c0277;
     border-radius: 2rem;
     color: rgb(191, 240, 255);
     transition-duration: 0.5s;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-
-
 }
 
-.edit-box:hover {
+.form-add:hover {
     background-color: #000000;
     transform: translateY(-0.5%);
-    box-shadow: 0 15px 25px rgba(13, 255, 255, 0.6);
+    box-shadow: 0 5px 15px rgba(13, 255, 255, 0.6);
+    color: aliceblue;
 }
 
-.edit-box .input-field {
+.form-add .input-field {
     position: relative;
 }
 
-.edit-box .input-field input {
+.form-add .input-field input {
     width: 100%;
     padding: 10px 0;
     font-size: 1rem;
@@ -42,12 +43,13 @@ body {
     border-bottom: 1px solid #fff;
     outline: none;
     background: transparent;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.edit-box .input-field label {
+.form-add .input-field label {
     padding: 10px 0;
     font-size: 16px;
-    color: #fff;
+    color: #ffffff;
     pointer-events: none;
     transition: .5s;
 }
@@ -62,8 +64,18 @@ h2 {
     letter-spacing: 2px;
 }
 
-.heroes-container {
+.add-box {
     border-radius: 15px;
     padding: 10px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.clear{
+    padding: 2rem;
+    background-color:#0a0606;
+    color: rgb(183, 0, 255);
+    border: 2px solid rgb(183, 0, 255);
+    
+}
+.clear:hover{
+    color: white;
 }

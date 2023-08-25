@@ -1,0 +1,36 @@
+<div class="add-box">
+
+    <form class="form-add" [formGroup]="applyForm" (ngSubmit)="add()">
+        <h2> Add new hero </h2>
+        <div class="input-field">
+            <label for="name">Name </label>
+            <input id="name" type="text" formControlName="name">
+        </div>
+
+        <div class="input-field">
+            <label for="description">Description </label>
+            <input id="description" type="text" formControlName="description">
+        </div>
+
+        <div class="input-field">
+            <label for="health">Health </label>
+            <input id="health" type="text" formControlName="health">
+        </div>
+
+        <div class="input-field">
+            <label for="basicDamage">Basic Damage </label>
+            <input id="basicDamage" type="text" formControlName="basicDamage">
+        </div>
+        <div class="input-field">
+            <label for="armour">Armour </label>
+            <input id="armour" type="text" formControlName="armour">
+        </div>
+        <div class="input-field">
+            <label for="heroPicture">Link to picture </label>
+            <input id="heroPicture" type="text" formControlName="heroPicture">
+        </div>
+
+        <button class="clear" type="submit">Save</button>
+        <button class="clear" type="button" onclick="goBack()">Go Back</button>
+    </form>
+</div>

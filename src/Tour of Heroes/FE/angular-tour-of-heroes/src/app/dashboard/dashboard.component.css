@@ -1,14 +1,24 @@
 /* DashboardComponent's private CSS styles */
 
+.container{
+margin: auto;
+}
+
 h2 {
   text-align: center;
+  color: rgb(222, 255, 255);
+  font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 5rem;
+  margin-top: 4rem;
 }
 
 .heroes-menu {
   padding: 0;
   margin: auto;
   max-width: 1000px;
+
+
 
   /* flexbox */
   display: -webkit-box;
@@ -24,9 +34,9 @@ h2 {
 }
 
 a {
-  background-color: #2f3a6e;
+  background-color: #9e000b;
   border-radius: 25px;
-  border: 5px solid #2d75b8;
+  border: 5px solid #aa0000;
   padding: 1rem;
   font-size: 1.2rem;
   text-decoration: none;
@@ -38,6 +48,7 @@ a {
   margin: .5rem auto;
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  transition-duration: 0.5s;
 
   /* flexbox */
   order: 0;
@@ -53,6 +64,7 @@ a {
 }
 
 a:hover {
-  background-color: black;
-  border:5px solid #164d81;
+  background-color: rgb(0, 0, 0);
+  border:5px solid #000000;
+  box-shadow: 0 0px 50px rgb(255, 0, 0);
 }

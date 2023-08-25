@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';  // <-- NgModel lives here
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';  // <-- NgModel lives here
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroEditComponent } from './hero-edit/hero-edit.component';
-
+import { HeroCreateComponent } from './hero-create/hero-create.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +24,14 @@ import { HeroEditComponent } from './hero-edit/hero-edit.component';
     HeroSearchComponent,
     HeaderComponent,
     HeroEditComponent,
-
+    HeroCreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent]
 })
