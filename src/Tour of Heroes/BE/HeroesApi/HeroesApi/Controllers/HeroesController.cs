@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HeroesApi.Models;
+using DataAcessLayer.Data;
+using DataAcessLayer.Models;
+using HeroesApi;
+using BusinessLogicLayer;
 
 namespace HeroesApi.Controllers
 {
@@ -13,33 +16,35 @@ namespace HeroesApi.Controllers
     [ApiController]
     public class HeroesController : ControllerBase
     {
-        private readonly HeroContext _context;
+        private readonly IHeroService _service;
 
-        public HeroesController(HeroContext context)
+        public HeroesController(IHeroService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: api/Heroes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HeroItem>>> GetHeroesItems()
         {
-          if (_context.Heroes == null)
-          {
-              return NotFound();
-          }
-            return await _context.Heroes.ToListAsync();
+            if (await _service.GetHeroItemsAsync() == null)
+            {
+                return NotFound();
+            }
+            var hero = await _service.GetHeroItemsAsync();
+
+            return Ok(hero);
         }
 
         // GET: api/Heroes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HeroItem>> GetHeroItem(long id)
         {
-          if (_context.Heroes == null)
-          {
-              return NotFound();
-          }
-            var hero = await _context.Heroes.FindAsync(id);
+            if (await _service.GetHeroItemsAsync() == null)
+            {
+                return NotFound();
+            }
+            var hero = await _service.GetHeroByIdAsync(id);
 
             if (hero == null)
             {
@@ -59,11 +64,9 @@ namespace HeroesApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(hero).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _service.UpdateHeroAsync(hero);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -71,10 +74,7 @@ namespace HeroesApi.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();
@@ -85,12 +85,11 @@ namespace HeroesApi.Controllers
         [HttpPost]
         public async Task<ActionResult<HeroItem>> PostHeroItem(HeroItem hero)
         {
-          if (_context.Heroes == null)
-          {
-              return Problem("Entity set 'HeroContext.Heroes'  is null.");
-          }
-            _context.Heroes.Add(hero);
-            await _context.SaveChangesAsync();
+            if (await _service.GetHeroItemsAsync() == null)
+            {
+                return Problem("Entity set 'DataContext.Heroes'  is null.");
+            }
+            await _service.AddHeroAsync(hero);
 
             return CreatedAtAction(nameof(GetHeroItem), new { id = hero.Id }, hero);
         }
@@ -99,25 +98,27 @@ namespace HeroesApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHeroItem(long id)
         {
-            if (_context.Heroes == null)
+            if (await _service.GetHeroItemsAsync() == null)
             {
                 return NotFound();
             }
-            var hero = await _context.Heroes.FindAsync(id);
+            var hero = await _service.GetHeroByIdAsync(id);
             if (hero == null)
             {
                 return NotFound();
             }
 
-            _context.Heroes.Remove(hero);
-            await _context.SaveChangesAsync();
+            await _service.DeleteHeroAsync(hero);
 
             return NoContent();
         }
 
         private bool HeroItemExists(long id)
         {
-            return (_context.Heroes?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_service.GetHeroByIdAsync(id).IsCompletedSuccessfully ? true : false);
+
         }
     }
 }
+
+

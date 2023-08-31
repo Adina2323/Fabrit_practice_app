@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroesApi", "HeroesApi\HeroesApi.csproj", "{2E3AF54A-9CF9-4D03-9979-05877C20AF94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroesApi", "HeroesApi\HeroesApi.csproj", "{2E3AF54A-9CF9-4D03-9979-05877C20AF94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAcessLayer", "DataAcessLayer\DataAcessLayer.csproj", "{1B96429B-92DD-4F19-A188-6A276C20AD9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{7A04EBA4-5681-443E-B824-6D97BF5699C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{2E3AF54A-9CF9-4D03-9979-05877C20AF94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E3AF54A-9CF9-4D03-9979-05877C20AF94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E3AF54A-9CF9-4D03-9979-05877C20AF94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B96429B-92DD-4F19-A188-6A276C20AD9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B96429B-92DD-4F19-A188-6A276C20AD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B96429B-92DD-4F19-A188-6A276C20AD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B96429B-92DD-4F19-A188-6A276C20AD9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A04EBA4-5681-443E-B824-6D97BF5699C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A04EBA4-5681-443E-B824-6D97BF5699C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A04EBA4-5681-443E-B824-6D97BF5699C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A04EBA4-5681-443E-B824-6D97BF5699C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,11 @@
 ﻿using System.Configuration;
-using HeroesApi.Models;
+using DataAcessLayer.Models;
+using DataAcessLayer.Data;
+using DataAcessLayer.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using DataAcessLayer.Repositories.Hero;
+using DataAcessLayer.Mappings;
 
 namespace HeroesApi
 {
@@ -25,11 +29,13 @@ namespace HeroesApi
                                             .AllowAnyMethod();
                     });
             });
+
+            services.AddAutoMapper(typeof(AutoMapperProfile));
         }
 
         public void OnConfiguring(IServiceCollection services)
         {
-            services.AddDbContext<HeroContext>(options =>
+            services.AddDbContext<DataContext>(options =>
       options.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=HeroesDB;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true;"));
         }
 

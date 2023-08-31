@@ -1,5 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using HeroesApi.Models;
+using DataAcessLayer.Data;
+using DataAcessLayer.Repositories.Hero;
+using DataAcessLayer.Repositories.Users;
+using HeroesApi;
+using DataAcessLayer.Mappings;
+using BusinessLogicLayer;
+using BusinessLogicLayer.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +15,18 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<HeroContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString),ServiceLifetime.Transient);
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IHeroRepository, HeroRepository>();
+builder.Services.AddScoped<IHeroService, HeroService>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

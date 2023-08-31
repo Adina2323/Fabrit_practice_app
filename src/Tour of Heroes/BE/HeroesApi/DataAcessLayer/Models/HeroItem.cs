@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HeroesApi.Models
+namespace DataAcessLayer.Models
 {
     public class HeroItem
     {
@@ -22,6 +22,5 @@ namespace HeroesApi.Models
 
         [MaxLength(500)]
         public string? HeroPicture { get; set; }
-
     }
 }
