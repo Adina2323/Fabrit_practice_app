@@ -11,11 +11,11 @@ namespace DataAcessLayer.Repositories.Users
     {
         Task<IEnumerable<User>> GetUsersAsync();
 
-        Task<User> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByEmailAsync(string? email);
 
         Task<User?> GetUserByIdAsync(long id);
 
-        Task<User> AddUserAsync(string email, string password, string username, string name); 
+        Task<User> AddUserAsync(User user); 
         Task<User> CreateEmptyUser(string email);
 
         Task UpdateUser(User user);

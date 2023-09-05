@@ -4,7 +4,6 @@ namespace DataAcessLayer.Models
 {
     public class HeroItem
     {
-        [Key]
         public long Id { get; set; }
 
         [Required]

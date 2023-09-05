@@ -23,25 +23,29 @@ namespace DataAcessLayer.Repositories.Hero
             return await _context.Heroes.ToListAsync();
         }
 
-        public async Task<HeroItem> GetHeroByIdAsync(long id)
+        public async Task<HeroItem?> GetHeroByIdAsync(long id)
         {
             return await _context.Heroes.FindAsync(id);
         }
+
         public async Task<HeroItem> AddHeroAsync(HeroItem heroItem)
         {
-            _context.Heroes.Add(heroItem);
+            _context.Heroes
+                .Add(heroItem);
             await _context.SaveChangesAsync();
             return heroItem;
         }
+
         public async Task UpdateHeroAsync(HeroItem heroItem)
         {
             _context.Entry(heroItem).State = EntityState.Modified;
-            
+
             await _context.SaveChangesAsync();
         }
         public async Task DeleteHeroAsync(HeroItem hero)
         {
-            _context.Heroes.Remove(hero);
+            _context.Heroes
+                .Remove(hero);
             await _context.SaveChangesAsync();
         }
 
@@ -52,8 +56,9 @@ namespace DataAcessLayer.Repositories.Hero
 
         public bool HeroItemExists(long id)
         {
-            return (_context.Heroes?.Any(hero => hero.Id == id)).GetValueOrDefault();
+            return (_context.Heroes?
+                .Any(hero => hero.Id == id))
+                .GetValueOrDefault();
         }
-
     }
 }

@@ -13,9 +13,9 @@ namespace BusinessLogicLayer.Users
     {
         Task<IEnumerable<User>> GetUsersAsync();
 
-        Task<User> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByEmailAsync(string? email);
 
-        Task<User> AddUserAsync(string email, string password, string username, string name);
+        Task<User> AddUserAsync(RegisterDTO registerDTO);
 
         Task<int> UpdatePassword(User user, string newPassword);
         Task<bool> UpdateUser(UserUpdateDTO user, long id);

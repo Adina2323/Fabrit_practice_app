@@ -9,6 +9,8 @@ using DataAcessLayer.Data;
 using DataAcessLayer.Models;
 using HeroesApi;
 using BusinessLogicLayer;
+using BusinessLogicLayer.Token;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HeroesApi.Controllers
 {
@@ -17,15 +19,17 @@ namespace HeroesApi.Controllers
     public class HeroesController : ControllerBase
     {
         private readonly IHeroService _service;
+        private readonly ITokenService _tokenService;
 
-        public HeroesController(IHeroService service)
+        public HeroesController(IHeroService service, ITokenService tokenService )
         {
             _service = service;
+            _tokenService = tokenService;
         }
 
         // GET: api/Heroes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HeroItem>>> GetHeroesItems()
+        public async Task<IActionResult> GetHeroesItems()
         {
             if (await _service.GetHeroItemsAsync() == null)
             {
@@ -38,7 +42,7 @@ namespace HeroesApi.Controllers
 
         // GET: api/Heroes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HeroItem>> GetHeroItem(long id)
+        public async Task<IActionResult> GetHeroItem(long id)
         {
             if (await _service.GetHeroItemsAsync() == null)
             {
@@ -50,14 +54,16 @@ namespace HeroesApi.Controllers
             {
                 return NotFound();
             }
-
-            return hero;
+            return Ok(hero);
         }
 
         // PUT: api/Heroes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHeroItem(long id, HeroItem hero)
+        [Authorize(Policy = "RequireLoggedIn")]
+        public async Task<IActionResult> PutHeroItem(
+            long id,
+            HeroItem hero)
         {
             if (id != hero.Id)
             {
@@ -76,14 +82,14 @@ namespace HeroesApi.Controllers
                 }
                 throw;
             }
-
             return NoContent();
         }
 
         // POST: api/Heroes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<HeroItem>> PostHeroItem(HeroItem hero)
+        [Authorize(Policy = "RequireLoggedIn")]
+        public async Task<IActionResult> PostHeroItem(HeroItem hero)
         {
             if (await _service.GetHeroItemsAsync() == null)
             {
@@ -96,6 +102,7 @@ namespace HeroesApi.Controllers
 
         // DELETE: api/Heroes/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "RequireLoggedIn")]
         public async Task<IActionResult> DeleteHeroItem(long id)
         {
             if (await _service.GetHeroItemsAsync() == null)
@@ -103,11 +110,11 @@ namespace HeroesApi.Controllers
                 return NotFound();
             }
             var hero = await _service.GetHeroByIdAsync(id);
+
             if (hero == null)
             {
                 return NotFound();
             }
-
             await _service.DeleteHeroAsync(hero);
 
             return NoContent();
@@ -115,8 +122,7 @@ namespace HeroesApi.Controllers
 
         private bool HeroItemExists(long id)
         {
-            return (_service.GetHeroByIdAsync(id).IsCompletedSuccessfully ? true : false);
-
+            return _service.GetHeroByIdAsync(id).IsCompletedSuccessfully;
         }
     }
 }

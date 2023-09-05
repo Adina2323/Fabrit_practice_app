@@ -54,7 +54,7 @@ namespace DataAcessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Heroes");
+                    b.ToTable("Heroes", (string)null);
                 });
 
             modelBuilder.Entity("DataAcessLayer.Models.Image", b =>
@@ -66,12 +66,11 @@ namespace DataAcessLayer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("DataAcessLayer.Models.User", b =>
@@ -88,6 +87,12 @@ namespace DataAcessLayer.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("HeroId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("LastActive")
                         .HasColumnType("datetime2");
@@ -108,7 +113,7 @@ namespace DataAcessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }

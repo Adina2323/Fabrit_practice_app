@@ -5,6 +5,17 @@ using DataAcessLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Drawing;
+using System.Security.Cryptography;
+using BusinessLogicLayer.Token;
+using BusinessLogicLayer.Email;
 
 namespace HeroesApi.Controllers
 {
@@ -14,29 +25,42 @@ namespace HeroesApi.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
+        private readonly IEmailService _emailService;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(
+            IUserService userService, 
+            IMapper mapper,
+            ITokenService tokenService,
+            IEmailService emailService )
         {
             _userService = userService;
             _mapper = mapper;
+            _tokenService = tokenService;
+            _emailService = emailService;
         }
+        //[HttpGet]
+        //[Authorize]
+        //public ActionResult<string> GetEmailOfCurrentUser() 
+        //{
+        //    var email = HttpContext.User.Claims.First(c => c.Type == "Email").Value;
+        //    return Ok(email);
+        //}
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsersAsync()
+        public async Task<IActionResult> GetUsersAsync()
         {
             var users = await _userService.GetUsersAsync();
 
             if (users == null)
             {
-                return Ok(new List<User>()); 
+                return Ok(new List<User>());
             }
-
-           // return Ok(users.Select(user => _mapper.Map<UserUpdateDTO>(user)));
-           return Ok(users);
+            return Ok(users);
         }
 
         [HttpGet("{email}")]
-        public async Task<ActionResult<User>> GetUserAsync(string email)
+        public async Task<IActionResult> GetUserAsync(string email)
         {
             if (await _userService.GetUsersAsync() == null)
             {
@@ -48,61 +72,38 @@ namespace HeroesApi.Controllers
             {
                 return NotFound();
             }
-
-            var userdto = new UserUpdateDTO()
-            {
-                Email = null,
-                Name = null,
-                UserName = null,
-            };
-
-            //return _mapper.Map(user,userdto);
-            return user;
-        }
-
-        [HttpPost("add-user")]
-        public async Task<ActionResult<User>> PostUserAsync(string email, string password, string username, string name)
-        {
-            if (await _userService.GetUsersAsync() == null)
-            {
-                return Problem("Entity set 'DataContext.Users'  is null.");
-            }
-
-            if (await _userService.GetUserByEmailAsync(email) != null)
-            {
-                return Conflict("Email already redistered");
-            }
-            return await _userService.AddUserAsync(email, password, username, name);
-
+            return Ok(user);
         }
 
         [HttpPut("update-password")]
-        public async Task<ActionResult<int>> PutNewPassword(string email, string newPassword)
+        [Authorize(Policy = "RequireLoggedIn")]
+        public async Task<IActionResult> PutNewPassword(PasswordUpdateDTO userUpdate)
         {
-            if (await _userService.GetUserByEmailAsync(email) == null)
+            if (await _userService.GetUserByEmailAsync(userUpdate.Email) == null)
             {
                 return Conflict("Account binded to this email not found!");
             }
-            var user = await _userService.GetUserByEmailAsync(email);
+            var user = await _userService.GetUserByEmailAsync(userUpdate.Email);
 
-            return await _userService.UpdatePassword(user, newPassword);
+            return Ok(await _userService.UpdatePassword(user, userUpdate.Password));
         }
 
-        [HttpPut("{id}/update-user")]
-        public async Task<ActionResult> UpdateUser(UserUpdateDTO user, long id)
+        [HttpPut("update-user/{id}")]
+        [Authorize(Policy = "RequireLoggedIn")]
+        public async Task<IActionResult> UpdateUser(
+            UserUpdateDTO user,
+            long id)
         {
             try
             {
-                await _userService.UpdateUser(user,id);
+                await _userService.UpdateUser(user, id);
             }
             catch (DbUpdateConcurrencyException)
             {
-                
                 throw;
             }
 
             return NoContent();
         }
-
     }
 }

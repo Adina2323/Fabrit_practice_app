@@ -10,7 +10,7 @@ namespace DataAcessLayer.Models
 {
     public class Image
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string? Url { get; set; }
     }

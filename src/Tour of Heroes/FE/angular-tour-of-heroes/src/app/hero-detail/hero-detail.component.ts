@@ -39,5 +39,9 @@ export class HeroDetailComponent {
     }
   }
 
+  onCreate() : void{
+    
+  }
+
   
 }

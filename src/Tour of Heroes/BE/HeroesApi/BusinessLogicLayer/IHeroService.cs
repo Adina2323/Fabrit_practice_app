@@ -10,7 +10,7 @@ namespace BusinessLogicLayer
     public interface IHeroService
     {
         Task<IEnumerable<HeroItem>> GetHeroItemsAsync();
-        Task<HeroItem> GetHeroByIdAsync(long id);
+        Task<HeroItem?> GetHeroByIdAsync(long id);
         Task<HeroItem> AddHeroAsync(HeroItem heroItem);
         Task UpdateHeroAsync(HeroItem heroItem);
         Task DeleteHeroAsync(HeroItem heroItem);

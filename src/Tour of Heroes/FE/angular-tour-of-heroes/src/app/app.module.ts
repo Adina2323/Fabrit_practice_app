@@ -13,6 +13,19 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HeaderComponent } from './header/header.component';
 import { HeroEditComponent } from './hero-edit/hero-edit.component';
 import { HeroCreateComponent } from './hero-create/hero-create.component';
+import { UploadComponent } from './upload/upload.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard } from './auth/auth.guard';
+
+export function tokenGetter(){
+  return localStorage.getItem("jwt");
+}
+
+export function emailGetter(){
+  return localStorage.getItem("email");
+}
 
 @NgModule({
   declarations: [
@@ -24,15 +37,27 @@ import { HeroCreateComponent } from './hero-create/hero-create.component';
     HeroSearchComponent,
     HeaderComponent,
     HeroEditComponent,
-    HeroCreateComponent
+    HeroCreateComponent,
+    UploadComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config:{
+        tokenGetter:tokenGetter,
+        //emailGetter:emailGetter,
+        allowedDomains:["localhost:44380"],
+        disallowedRoutes:[]
+      }
+    })
   ],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

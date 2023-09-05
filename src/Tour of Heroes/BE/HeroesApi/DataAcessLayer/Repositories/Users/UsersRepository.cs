@@ -27,28 +27,20 @@ namespace DataAcessLayer.Repositories.Users
             return await _userContext.Users.ToListAsync();
         }
 
-
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<User?> GetUserByEmailAsync(string? email)
         {
-            return await _userContext.Users.Where(user => user.Email == email).FirstOrDefaultAsync();
+            var user = await _userContext.Users
+                .Where(user => user.Email == email)
+                .FirstOrDefaultAsync();
+            return user;
         }
 
-        public async Task<User> AddUserAsync(string email, string password, string username, string name)
+        public async Task<User> AddUserAsync(User user)
         {
-            using var hmac = new HMACSHA256();
-            var user = new User
-            {
-                Username = username,
-                Name = name,
-                Email = email,
-                CreatedDate = DateTime.UtcNow,
-                Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
-                SaltPassword = hmac.Key
-            };
-            _userContext.Users.Add(user);
+            _userContext.Users
+                .Add(user);
             if (await SaveAllAsync()) return user;
             throw new Exception();
-
         }
 
         public async Task<User> CreateEmptyUser(string email)
@@ -63,17 +55,21 @@ namespace DataAcessLayer.Repositories.Users
                 Password = hmac.ComputeHash(Encoding.UTF8.GetBytes("Password")),
                 SaltPassword = hmac.Key
             };
-            _userContext.Users.Add(user);
-            if (await SaveAllAsync()) return user;
+            _userContext.Users
+                .Add(user);
+            if (await SaveAllAsync())
+            {
+                return user;
+            }
             throw new Exception();
         }
 
         public async Task UpdateUser(User user)
         {
-
             user.LastActive = DateTime.UtcNow;
 
-            _userContext.Users.Update(user);
+            _userContext.Users
+                .Update(user);
             await _userContext.SaveChangesAsync();
         }
 
@@ -84,15 +80,20 @@ namespace DataAcessLayer.Repositories.Users
 
         public async Task<bool> UserExists(string email)
         {
-            return await _userContext.Users.AnyAsync(user => user.Email == email); 
+            return await _userContext.Users
+                .AnyAsync(user => user.Email == email);
         }
 
         public async Task<bool> UserExistsByIdAync(long id)
         {
-            return await _userContext.Users.AnyAsync(user => user.Id == id);
+            return await _userContext.Users
+                .AnyAsync(user => user.Id == id);
         }
 
-        public async void ChangePassword(User user, string oldPassword, string newPassword)
+        public void ChangePassword(
+            User user,
+            string oldPassword,
+            string newPassword)
         {
             if (oldPassword == newPassword)
             {
@@ -115,10 +116,10 @@ namespace DataAcessLayer.Repositories.Users
 
         public async Task<User?> GetUserByIdAsync(long id)
         {
-           return await  _userContext
-                .Users
-                .Where(_user => _user.Id == id)
-                .FirstOrDefaultAsync();
+            return await _userContext
+                 .Users
+                 .Where(_user => _user.Id == id)
+                 .FirstOrDefaultAsync();
         }
     }
 }

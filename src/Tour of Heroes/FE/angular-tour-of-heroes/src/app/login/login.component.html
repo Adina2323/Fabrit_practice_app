@@ -1,0 +1,19 @@
+<body>
+    <div class="login">
+        <h2>Login Page</h2><br>
+        <form id="login" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password.</div>
+            <input type="email" name="email" id="email"  ngModel class="input" placeholder="Email"  required autofocus>
+            <br><br>
+            <input type="password" name="password" id="password" ngModel class="input" placeholder="Password" required>
+            <br><br>
+            <a href="#">Forgot password? Click here.</a>
+            <br><br>
+            <br><br>
+            <div class="buttons-corner">
+                <button type="submit" class="clear">Login</button>
+                <button type="button" class="clear" routerLink="/register">Register</button>
+            </div>
+        </form>
+    </div>
+</body>

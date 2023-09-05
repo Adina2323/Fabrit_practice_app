@@ -22,7 +22,7 @@ namespace BusinessLogicLayer
             return await _heroRepository.GetHeroesAsync();
         }
 
-        public async Task<HeroItem> GetHeroByIdAsync(long id)
+        public async Task<HeroItem?> GetHeroByIdAsync(long id)
         {
             return await _heroRepository.GetHeroByIdAsync(id);
         }
@@ -35,13 +35,14 @@ namespace BusinessLogicLayer
         public async Task UpdateHeroAsync(HeroItem heroItem)
         {
             await _heroRepository.UpdateHeroAsync(heroItem);
-
         }
 
         public async Task DeleteHeroAsync(HeroItem hero)
         {
             await _heroRepository.DeleteHeroAsync(hero);
         }
+
+
     }
 
 }
