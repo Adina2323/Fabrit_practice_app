@@ -7,7 +7,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 @Component({
   selector: 'app-hero-create',
   templateUrl: './hero-create.component.html',
-  styleUrls: ['./hero-create.component.css']
+  styleUrls: ['./hero-create.component.scss']
 })
 export class HeroCreateComponent {
   hero?: Hero;

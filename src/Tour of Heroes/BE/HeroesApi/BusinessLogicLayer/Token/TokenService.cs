@@ -26,14 +26,16 @@ namespace BusinessLogicLayer.Token
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Email, email)
             };
 
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+            var token = new JwtSecurityToken(
               _config["Jwt:Issuer"],
-              null,
+              _config["Jwt:Issuer"],
+              claims: claims,
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);
 

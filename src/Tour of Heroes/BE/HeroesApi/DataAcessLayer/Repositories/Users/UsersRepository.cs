@@ -121,5 +121,11 @@ namespace DataAcessLayer.Repositories.Users
                  .Where(_user => _user.Id == id)
                  .FirstOrDefaultAsync();
         }
+
+        //public async Task<User?> SetHeroForUser(User user, long id)
+        //{
+        //    user.HeroId = id;
+
+        //}
     }
 }

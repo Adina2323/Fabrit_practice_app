@@ -1,7 +1,17 @@
-/* DashboardComponent's private CSS styles */
+/* DashboardComponent's private SCSS styles */
+
+$light-blue: #669BBC;
+$dark-blue: #003049;
+$cream: #FDF0D5;
+$bright-red: #C1121F;
+$dark-red: #780000;
 
 .container{
-margin: auto;
+  border: 2px solid $dark-blue;
+  border-radius: 15px;
+  background-color: #073b5c;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 h2 {
@@ -18,13 +28,7 @@ h2 {
   margin: auto;
   max-width: 1000px;
 
-
-
   /* flexbox */
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -65,6 +69,6 @@ a {
 
 a:hover {
   background-color: rgb(0, 0, 0);
-  border:5px solid #000000;
+  border:5px solid black;
   box-shadow: 0 0px 50px rgb(255, 0, 0);
 }

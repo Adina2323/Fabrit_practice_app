@@ -88,15 +88,15 @@ namespace HeroesApi.Controllers
             return Ok(await _userService.UpdatePassword(user, userUpdate.Password));
         }
 
-        [HttpPut("update-user/{id}")]
+        [HttpPut("update-user")]
         [Authorize(Policy = "RequireLoggedIn")]
-        public async Task<IActionResult> UpdateUser(
-            UserUpdateDTO user,
-            long id)
+        public async Task<IActionResult> UpdateUser([FromBody] UserUpdateDTO user)
         {
             try
             {
-                await _userService.UpdateUser(user, id);
+                var currentUserEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+                Console.Write(currentUserEmail);
+                await _userService.UpdateUser(user, currentUserEmail);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -105,5 +105,17 @@ namespace HeroesApi.Controllers
 
             return NoContent();
         }
+
+        //[HttpPut("choose-hero")]
+        //[Authorize(Policy = "RequireLoggedIn")]
+        //public async Task<IActionResult> ChooseHeroAsync(string email, HeroItem hero)
+        //{
+        //    var user = await _userService.GetUserByEmailAsync(email);
+        //    if (user == null)
+        //    {
+        //        return NoContent();
+        //    }
+            
+        //}
     }
 }

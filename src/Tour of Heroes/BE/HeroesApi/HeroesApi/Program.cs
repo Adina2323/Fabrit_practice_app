@@ -15,6 +15,7 @@ using BusinessLogicLayer.Image;
 using BusinessLogicLayer.Configuration;
 using Microsoft.Extensions.FileProviders;
 using BusinessLogicLayer.AuthService;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,7 +52,11 @@ builder.Services.AddSingleton(emailConfig);
 
 //----------- Authentication --------------------
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+  {
+      options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+      options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+  })
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -62,7 +67,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+        NameClaimType = ClaimTypes.Email
     };
 });
 builder.Services.AddAuthorization(options =>
@@ -70,6 +76,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireLoggedIn", policy =>
     {
         policy.RequireAuthenticatedUser();
+        //policy.RequireClaim("Email");
     });
 });
 

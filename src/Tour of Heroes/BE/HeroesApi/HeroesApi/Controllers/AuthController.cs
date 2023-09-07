@@ -1,8 +1,10 @@
-﻿using BusinessLogicLayer.AuthService;
+﻿using System.Security.Claims;
+using BusinessLogicLayer.AuthService;
 using BusinessLogicLayer.Email;
 using BusinessLogicLayer.Token;
 using BusinessLogicLayer.Users;
 using DataAcessLayer.Mappings.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,7 +38,13 @@ namespace HeroesApi.Controllers
                 return Unauthorized();
             }
 
-            var token = _tokenService.GenerateJSONWebToken(userLogin.Email);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, user.Email)
+
+            };
+            var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+            var token = _tokenService.GenerateJSONWebToken(user.Email);
 
             return Ok(token);
         }
@@ -49,18 +57,17 @@ namespace HeroesApi.Controllers
             {
                 return Conflict("Email already registered");
             }
-            string url = $"https://localhost/api/users/{register.Email}";
 
-            var inviteMail = new InviteMailDTO
-            {
-                EmailTo = register.Email,
-                ReceiverName = register.Name,
-                Body = "New invitation" +
-                "<p>Hello \n You have been invited to our private site.</p>" +
-                "<p>To log in, use this super secret password:'Pa$$word'</p>" +
-                "<p>See you<a href= 'http://localhost:4200' > here </ a ></p> ",
-                Subject = "Welcome to Heroes App!",
-            };
+            //var inviteMail = new InviteMailDTO
+            //{
+            //    EmailTo = register.Email,
+            //    ReceiverName = register.Name,
+            //    Body = "New invitation" +
+            //    "<p>Hello \n You have been invited to our private site.</p>" +
+            //    "<p>To log in, use this super secret password:'Pa$$word'</p>" +
+            //    "<p>See you<a href= 'http://localhost:4200' > here </ a ></p> ",
+            //    Subject = "Welcome to Heroes App!",
+            //};
 
             //await _emailService.SendEmailAsync(inviteMail);
             await _userService.AddUserAsync(register);

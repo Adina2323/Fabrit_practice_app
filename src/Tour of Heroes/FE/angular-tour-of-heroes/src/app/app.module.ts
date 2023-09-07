@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';  // <-- NgModel lives here
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,12 +18,14 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './auth/auth.guard';
+import { ManageAccountComponent } from './manage.account/manage.account.component';
+import { JwtAtuthenticationInterceptor } from './interceptors/jwt-authetication-interceptor';
 
-export function tokenGetter(){
+export function tokenGetter() {
   return localStorage.getItem("jwt");
 }
 
-export function emailGetter(){
+export function emailGetter() {
   return localStorage.getItem("email");
 }
 
@@ -40,7 +42,8 @@ export function emailGetter(){
     HeroCreateComponent,
     UploadComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ManageAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -49,15 +52,16 @@ export function emailGetter(){
     HttpClientModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
-      config:{
-        tokenGetter:tokenGetter,
+      config: {
+        tokenGetter: tokenGetter,
         //emailGetter:emailGetter,
-        allowedDomains:["localhost:44380"],
-        disallowedRoutes:[]
+        allowedDomains: ["localhost:44380"],
+        disallowedRoutes: []
       }
     })
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtAtuthenticationInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

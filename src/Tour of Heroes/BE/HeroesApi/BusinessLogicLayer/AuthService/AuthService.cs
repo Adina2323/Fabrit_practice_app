@@ -32,12 +32,9 @@ namespace BusinessLogicLayer.AuthService
             using var hmac = new HMACSHA256(user.SaltPassword);
 
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(login.Password));
-            for (int i = 0; i < computedHash.Length; i++)
+            if (computedHash.SequenceEqual(user.Password))
             {
-                if (computedHash[i] == user.Password[i])
-                {
-                    return login;
-                }
+                return login;
             }
             return null;
         }

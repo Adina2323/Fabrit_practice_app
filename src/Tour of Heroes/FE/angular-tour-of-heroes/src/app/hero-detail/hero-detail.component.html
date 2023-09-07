@@ -2,11 +2,11 @@
   <div *ngIf="hero">
     <div class="profile-card">
       <a>
-        <img [src]="hero.heroPicture"auto=format fit=crop w=2250 q=80 />
+        <img [src]="hero.heroPicture" auto=format fit=crop w=2250 q=80 />
       </a>
       <div class="profile-bio">
-        <h1>{{ hero.name }}</h1> 
-        
+        <h1>{{ hero.name }}</h1>
+
         <p><strong>Description: </strong>{{ hero.description }}</p>
 
         <p><strong>Basic Damage: </strong>{{ hero.basicDamage }}</p>
@@ -14,16 +14,11 @@
         <p><strong>Health: </strong>{{ hero.health }}</p>
 
         <p><strong>Armour: </strong>{{ hero.armour }}</p>
-
-        <button class="edit-button" type="button" routerLink="/edit/{{hero.id}}" > Edit Hero </button>
+        <button class="choose-hero-button" type="button">Choose Hero</button>
+        <button class="edit-button" type="button" routerLink="/edit/{{hero.id}}"> Edit Hero </button>
         <button class="goback-button" type="button" (click)="goBack()">Go Back</button>
+
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-

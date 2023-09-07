@@ -3,16 +3,17 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserToken } from '../token';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.scss']
 })
 
 export class RegisterComponent {
-  invalidRegistration : boolean | undefined;
-  constructor(private http: HttpClient, private router: Router) {}
+  registerStatus : boolean |undefined;
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
   register(form: NgForm) {
     const credentials = {
@@ -21,23 +22,8 @@ export class RegisterComponent {
       'username': form.value.username,
       'name': form.value.name 
     }
-    this.http.post("https://localhost:44380/api/auth/register",credentials)
-    .subscribe(
-      (response: any) => {
-        console.log('Registration successful', response);
-        const userToken: UserToken = {
-          token: response.token,
-          email: response.email
-        };
-        localStorage.setItem("jwt", userToken.token);
-        localStorage.setItem("email", userToken.email);
-        this.invalidRegistration = false;
-        this.router.navigate(["/dashboard"]); // Redirect to the desired route after successful login
-      }, 
-      (error) => {
-        console.error('Registration error', error);
-        this.invalidRegistration = true;
-      }
-    );
+    this.authService.register(credentials);
+    this.registerStatus = this.authService.isUserAuthenticated();
+    
   }
 }

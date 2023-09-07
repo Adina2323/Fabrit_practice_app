@@ -18,7 +18,7 @@ namespace BusinessLogicLayer.Users
         Task<User> AddUserAsync(RegisterDTO registerDTO);
 
         Task<int> UpdatePassword(User user, string newPassword);
-        Task<bool> UpdateUser(UserUpdateDTO user, long id);
+        Task<bool> UpdateUser(UserUpdateDTO user, string email);
 
     }
 }

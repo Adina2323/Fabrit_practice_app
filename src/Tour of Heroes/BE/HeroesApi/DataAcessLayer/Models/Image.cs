@@ -12,6 +12,7 @@ namespace DataAcessLayer.Models
     {
         public long Id { get; set; }
 
-        public string? Url { get; set; }
+        [Required]
+        public string? Path { get; set; }
     }
 }

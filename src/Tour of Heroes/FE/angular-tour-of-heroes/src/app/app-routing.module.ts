@@ -9,6 +9,7 @@ import { HeroCreateComponent } from './hero-create/hero-create.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ManageAccountComponent } from './manage.account/manage.account.component';
 
 const routes: Routes = [
   { path: 'heroes', component: HeroesComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'create', component: HeroCreateComponent ,canActivate:[AuthGuard]},
   { path: 'edit/:id', component: HeroEditComponent ,canActivate:[AuthGuard]},
   { path: 'register', component: RegisterComponent},
-  { path: 'login', component:LoginComponent}
+  { path: 'login', component:LoginComponent},
+  { path: 'manage-account',component:ManageAccountComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

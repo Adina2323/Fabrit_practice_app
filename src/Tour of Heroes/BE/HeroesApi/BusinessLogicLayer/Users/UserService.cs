@@ -69,9 +69,9 @@ namespace BusinessLogicLayer.Users
 
         public async Task<bool> UpdateUser(
             UserUpdateDTO updatedUser,
-            long id)
+            string email)
         {
-            var exists = await _usersRepository.UserExistsByIdAync(id);
+            var exists = await _usersRepository.UserExists(email);
 
             if (exists == false)
             {
@@ -79,7 +79,7 @@ namespace BusinessLogicLayer.Users
             }
 
             var updatedEntity = _mapper.Map<User>(updatedUser);
-            updatedEntity.Id = id;
+      
 
             await _usersRepository.UpdateUser(updatedEntity);
 

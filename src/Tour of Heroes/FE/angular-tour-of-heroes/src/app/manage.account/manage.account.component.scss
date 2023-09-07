@@ -1,0 +1,143 @@
+$light-blue: #669BBC;
+$dark-blue: #003049;
+$cream: #FDF0D5;
+$bright-red: #C1121F;
+$dark-red: #780000;
+$header-white: #f1f1f1;
+
+.sidebar {
+    background-color: $header-white;
+    border-radius: 0.9rem;
+    width: fit-content;
+    height: 77vh;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.info-buttons {
+    color: $dark-blue;
+    text-align: center;
+    padding: 1rem;
+    text-decoration: none;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    margin: 1.3rem;
+}
+
+.info-buttons:hover {
+    background-color: #1258c125;
+    color: black;
+}
+
+.delete-account-link {
+    grid-row: 3;
+    /* Position the "Delete Account" link at the bottom */
+    color: $dark-blue;
+    text-align: center;
+    padding: 1rem;
+    text-decoration: none;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    margin: 1rem;
+}
+
+.delete-account-link:hover {
+    background-color: $bright-red;
+    color: rgb(255, 255, 255);
+}
+
+
+
+/*-------------------------------- Update User Info Styles ----------------------------------------------------*/
+
+.login {
+    transition: transform 0.3s ease-out;
+    /* Adjust the duration and easing as needed */
+    transform: translateX(0);
+    /* Initial position */
+    width: 64vw;
+    height: 62.5vh;
+    margin: auto;
+    margin-top: -2rem;
+    padding: 3rem 5rem 3.5rem 5rem;
+    background: #ecf5f5;
+    border-radius: 15px;
+    transition-duration: 0.2s;
+}
+
+.login:hover {
+    box-shadow: 0 5px 25px $light-blue;
+}
+
+.login.appear {
+    transform: translateX(20px);
+    /* Amount to move to the right */
+}
+
+h2 {
+    text-align: left;
+    color: $light-blue;
+    margin-bottom: 1.3rem;
+    font-weight: 900;
+    font-size: 2rem;
+}
+
+.buttons-corner {
+    margin-top: 2.2rem;
+    display: flex;
+}
+
+.input {
+    margin: auto;
+    min-width: 62.5vw;
+    height: 2rem;
+    padding-left: 0.6rem;
+    border: 2px solid $light-blue;
+    border-radius: 0.5rem;
+    background-color: #fcf9f0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #003049;
+}
+
+.input:focus {
+
+    border: 2px solid #2d791a;
+}
+
+.clear {
+    flex: auto;
+    padding: 1rem;
+    width: 5rem;
+    margin-left: 2rem;
+    margin-right: 3rem;
+    background-color: #f0f3fc;
+    color: $light-blue;
+    border: 2px solid $light-blue;
+    border-radius: 0.8em;
+    font-weight: 800;
+
+}
+
+.clear:hover {
+    color: white;
+    background-color: $dark-blue;
+}
+
+span {
+    color: white;
+    font-size: 17px;
+}
+
+a {
+    float: right;
+    color: #780000;
+    font-size: small;
+    font-weight: normal;
+}

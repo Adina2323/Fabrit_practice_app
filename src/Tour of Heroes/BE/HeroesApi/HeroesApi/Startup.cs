@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using DataAcessLayer.Repositories.Hero;
 using DataAcessLayer.Mappings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace HeroesApi
 {
@@ -31,6 +34,25 @@ namespace HeroesApi
             });
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false; // Change this in production
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true, // Set to true if you want to validate the issuer (usually your API server)
+                    ValidateAudience = true, // Set to true if you want to validate the audience (usually the client)
+                    ValidateLifetime = true, // Set to true if you want to check the token's expiration date
+                    ValidateIssuerSigningKey = true, // Set to true if you want to validate the security key
+                    ValidIssuer = "your-issuer", // Replace with your issuer URL or name
+                    ValidAudience = "your-audience", // Replace with your audience URL or name
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-secret-key")) // Replace with your secret key
+                };
+            });
         }
 
         public void OnConfiguring(IServiceCollection services)

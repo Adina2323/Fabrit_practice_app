@@ -2,10 +2,13 @@
     <!--<img src="../image_2023-08-23_104512765-removebg-preview.png" class="picture" alt="Logo"> -->
     <a class="logo">Tour of Heroes</a>
     <div class="header-right">
-      <a class="active" href="#home">Home</a>
+      <a  href="#home">Home</a>
       <a routerLink="/heroes">Heroes</a>
-      <a routerLink="/dashboard">Dashboard</a>
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
+      <a *ngIf="authService.isUserAuthenticated()" routerLink="/dashboard">Dashboard</a>
+      <a *ngIf="!authService.isUserAuthenticated()" routerLink="/login">Login</a>
+      <a *ngIf="!authService.isUserAuthenticated()" routerLink="/register">Register</a>
+      <button class = "active" *ngIf="authService.isUserAuthenticated()" type="button" (click)="authService.logout()">Logout</button>
+      <a *ngIf="authService.isUserAuthenticated()" routerLink="/manage-account">User</a>
+      
     </div>
 </div>

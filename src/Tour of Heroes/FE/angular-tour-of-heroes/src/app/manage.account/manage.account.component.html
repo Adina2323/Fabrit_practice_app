@@ -1,0 +1,52 @@
+<div class="container" style="display: flex;">
+    <div class="sidebar">
+        <div class="links">
+            <button type="button" class="info-buttons" (click)="showUserUpdate()">Update User Info</button>
+            <button type="button" class="info-buttons" (click)="showPasswordUpdate()">Update Password</button>
+        </div>
+        <button type="button" class="delete-account-link">Delete Account</button>
+    </div>
+    <div class="content">
+        <div *ngIf="this.updateUser">
+            <body>
+                <div class="login">
+                    <h2>Update User Info</h2><br>
+                    <form id="login" #updateUserInfoForm="ngForm"  (ngSubmit)="updateUserInfo(updateUserInfoForm)" >
+                        <input type="email" name="email" id="email"  ngModel class="input" placeholder="Email"  required>
+                        <br><br>
+                        <input type="text" name="name" id="name" ngModel class="input" placeholder="Name" required>
+                        <br><br>
+                         <input type="text" name="username" id="username" ngModel class="input" placeholder="Username" required>
+                        <br><br>
+                        <!-- <div *ngIf="!updateUserInfo(updateUserInfoForm)" class="alert alert-danger">Email already taken</div> -->
+                        <div class="buttons-corner">
+                            <button type="submit" class="clear">Update</button>
+                            <button type="button" class="clear" (click)="goback()">Go Back</button>
+                        </div>
+                    </form>
+                </div>
+            </body>
+
+        </div>
+        <div *ngIf="this.updatePassword">
+            <body>
+                <div class="login">
+                    <h2>Update Password</h2><br>
+                    <form id="login" #updatePasswordForm="ngForm" (ngSubmit)="updateUserPassword(updatePasswordForm)" >
+                        <input type="password" name="password" id="password"  ngModel class="input" placeholder="Password" required>
+                        <br><br>
+                        <input type="password" name="rePassword" id="rePassword" ngModel class="input" placeholder="Confirm Password" required>
+                        <br><br>
+                        <br><br>
+                        <br><br>
+                        <div *ngIf="errormessage" class="alert alert-danger">Passwords Mismatch</div>
+                        <div class="buttons-corner">
+                            <button type="submit" class="clear">Update</button>
+                            <button type="button" class="clear" (click)="goback()">Go Back</button>
+                        </div>
+                    </form>
+                </div>
+            </body>
+        </div>
+    </div>
+</div>

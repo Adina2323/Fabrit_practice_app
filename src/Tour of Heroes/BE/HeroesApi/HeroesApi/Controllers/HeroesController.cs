@@ -31,12 +31,7 @@ namespace HeroesApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetHeroesItems()
         {
-            if (await _service.GetHeroItemsAsync() == null)
-            {
-                return NotFound();
-            }
             var hero = await _service.GetHeroItemsAsync();
-
             return Ok(hero);
         }
 
@@ -44,10 +39,6 @@ namespace HeroesApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetHeroItem(long id)
         {
-            if (await _service.GetHeroItemsAsync() == null)
-            {
-                return NotFound();
-            }
             var hero = await _service.GetHeroByIdAsync(id);
 
             if (hero == null)
@@ -60,7 +51,8 @@ namespace HeroesApi.Controllers
         // PUT: api/Heroes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize(Policy = "RequireLoggedIn")]
+        //[Authorize(Policy = "RequireLoggedIn")]
+        [Authorize]
         public async Task<IActionResult> PutHeroItem(
             long id,
             HeroItem hero)
@@ -88,7 +80,8 @@ namespace HeroesApi.Controllers
         // POST: api/Heroes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize(Policy = "RequireLoggedIn")]
+       // [Authorize(Policy = "RequireLoggedIn")]
+        [Authorize]
         public async Task<IActionResult> PostHeroItem(HeroItem hero)
         {
             if (await _service.GetHeroItemsAsync() == null)
@@ -102,13 +95,10 @@ namespace HeroesApi.Controllers
 
         // DELETE: api/Heroes/5
         [HttpDelete("{id}")]
-        [Authorize(Policy = "RequireLoggedIn")]
+        // [Authorize(Policy = "RequireLoggedIn")]
+        [Authorize]
         public async Task<IActionResult> DeleteHeroItem(long id)
         {
-            if (await _service.GetHeroItemsAsync() == null)
-            {
-                return NotFound();
-            }
             var hero = await _service.GetHeroByIdAsync(id);
 
             if (hero == null)
