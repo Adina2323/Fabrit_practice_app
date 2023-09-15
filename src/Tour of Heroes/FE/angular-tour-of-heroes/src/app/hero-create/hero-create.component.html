@@ -25,10 +25,18 @@
             <label for="armour">Armour </label>
             <input id="armour" type="text" formControlName="armour">
         </div>
+
+
         <div class="input-field">
-            <label for="heroPicture">Link to picture </label>
-            <input id="heroPicture" type="text" formControlName="heroPicture">
+            <label for="picture">Link to picture </label>
+            <input id="picture" type="text" formControlName="picture">
         </div>
+
+        <mat-select class="input_field_dropdown" formControlName="powers" multiple placeholder="Select Powers">
+            <mat-option *ngFor="let power of powers" [value]="power">{{ power }}
+
+            </mat-option>
+        </mat-select>
 
         <button class="clear" type="submit">Save</button>
         <button class="clear" type="button" onclick="goBack()">Go Back</button>

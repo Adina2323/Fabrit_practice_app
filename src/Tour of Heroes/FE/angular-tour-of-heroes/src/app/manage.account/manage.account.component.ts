@@ -60,8 +60,11 @@ export class ManageAccountComponent {
     }
     console.log(credentials);
     this.userService.updateUserInfo(credentials);
+  }
 
-
+  deleteUser()
+  {
+    this.userService.deleteUser();
   }
 
 }

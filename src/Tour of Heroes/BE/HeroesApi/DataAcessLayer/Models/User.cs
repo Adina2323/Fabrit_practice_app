@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAcessLayer.Models
 {
@@ -23,10 +23,17 @@ namespace DataAcessLayer.Models
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public DateTime? LastActive { get; set; } = null;
+        
 
+        [ForeignKey(nameof(Hero))]
         public long? HeroId { get; set; }
 
-        public int? ImageId { get; set; }
+        public HeroItem? Hero { get; set; }
+
+
+        [ForeignKey(nameof(ProfilePicture))]
+        public int? ProfilePictureId { get; set; }
+        public Image? ProfilePicture { get; set; }
 
 
 

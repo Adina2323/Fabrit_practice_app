@@ -7,10 +7,10 @@ namespace DataAcessLayer.Models
         public long Id { get; set; }
 
         [Required]
-        [MaxLength(50, ErrorMessage="Hero name must be 50 characters or shorter!")]
+        [MaxLength(500, ErrorMessage="Hero name must be 500 characters or shorter!")]
         public string? Name { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(500000000)]
         public string? Description { get; set; }
 
         public int? Health { get; set; }
@@ -19,7 +19,9 @@ namespace DataAcessLayer.Models
 
         public int? Armour { get; set; }
 
-        [MaxLength(500)]
-        public string? HeroPicture { get; set; }
+
+        public ICollection<Image> Images { get; set; }
+
+        public ICollection<HeroItemPower> Powers { get; set; }
     }
 }

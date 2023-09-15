@@ -43,6 +43,12 @@ namespace BusinessLogicLayer.Users
 
         }
 
+        public async Task DeleteUserAsync(string email)
+        {
+            var user = await _usersRepository.GetUserByEmailAsync(email);
+            _usersRepository.DeleteUser(user);
+        }
+
         public async Task<User?> GetUserByEmailAsync(string? email)
         {
             return await _usersRepository.GetUserByEmailAsync(email);
@@ -79,9 +85,10 @@ namespace BusinessLogicLayer.Users
             }
 
             var updatedEntity = _mapper.Map<User>(updatedUser);
-      
 
+            updatedEntity.Id = await _usersRepository.GetIdByEmailAsync(email);
             await _usersRepository.UpdateUser(updatedEntity);
+            
 
             if (await _usersRepository.SaveAllAsync())
             {
@@ -89,5 +96,7 @@ namespace BusinessLogicLayer.Users
             }
             return false;
         }
+
+
     }
 }

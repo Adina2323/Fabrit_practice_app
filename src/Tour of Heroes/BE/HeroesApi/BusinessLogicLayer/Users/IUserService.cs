@@ -20,5 +20,7 @@ namespace BusinessLogicLayer.Users
         Task<int> UpdatePassword(User user, string newPassword);
         Task<bool> UpdateUser(UserUpdateDTO user, string email);
 
+        Task DeleteUserAsync(string email); 
+
     }
 }

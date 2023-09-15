@@ -63,5 +63,22 @@ export class UserService {
         })
       ).subscribe();
     }
+
+    deleteUser()
+    {
+      
+      return this.http.put('https://localhost:44380/api/Users/delete-user', this.authService.getEmailOfCurrentUser()).pipe(
+        map((response: any) => {
+          // Check the response and return true or false based on success or failure
+          const success = response && response.code === 'success';
+          this.authService.logout();
+          return success;
+        }),
+        catchError((err: any) => {
+          console.error('Delete User Failed', err);
+          return of(false);
+        })
+      );
+    }
   }
 

@@ -24,7 +24,11 @@ export class HeroSearchComponent implements OnInit {
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
+    
   }
+  
+
+  
 
   ngOnInit(): void {
     this.heroes$ = this.searchTerms.pipe(

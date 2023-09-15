@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { HeroService } from '../hero.service';
+import { HttpBackend, HttpClient } from '@angular/common/http';
+import { AuthService } from '../services/auth/auth.service';
+import { catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-hero-detail',
@@ -16,7 +19,9 @@ export class HeroDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
-    private location: Location
+    private location: Location,
+    private http:HttpClient,
+    private auth:AuthService
   ) {}
 
   ngOnInit(): void {
@@ -39,9 +44,31 @@ export class HeroDetailComponent {
     }
   }
 
-  onCreate() : void{
+  chooseHero():void{
+    console.log('lllllllllllll');
     
+    const credentials = {
+      email: this.auth.getEmailOfCurrentUser(),
+      heroId: this.hero?.id
+    }
+
+    this.http.put(`https://localhost:44380/api/Users/choose-hero`, credentials)
+    .pipe(
+           map((response: any) => {
+             console.log(response);
+              
+           }),
+            catchError((err: any) => {
+               console.error('dasdsad', err);
+             return of(false);
+            })).subscribe();
   }
+
+  delete():void{
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+        this.heroService.deleteHero(id).subscribe(() => this.goBack());
+    }
+  
 
   
 }

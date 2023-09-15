@@ -4,6 +4,7 @@ import { Observable, asyncScheduler, scheduled, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { heroDisplay } from './heroDisplay';
 
 @Injectable({
   providedIn: 'root'
@@ -96,5 +97,23 @@ searchHeroes(term: string): Observable<Hero[]> {
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
   }
+
+  getHeroOfUser(email: string) {
+    return this.http.get(`https://localhost:44380/api/Users/user-picture?email=${email}`).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response as heroDisplay;
+      }),
+      catchError((err: any) => {
+        console.error('dasdsad', err);
+        return of(null); // Return a default value or handle the error accordingly
+      })
+    );
+  }
+
+  sendEmail(email:string, name:string){
+    
+  }
+  
   
 }

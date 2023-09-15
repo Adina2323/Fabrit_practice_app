@@ -5,5 +5,6 @@ export interface Hero{
     health: number;
     basicDamage: number;
     armour: number;
-    heroPicture : string;
+    powers: string[];
+    picture : string;
 }

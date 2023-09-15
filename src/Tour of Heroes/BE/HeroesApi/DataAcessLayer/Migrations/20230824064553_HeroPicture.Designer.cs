@@ -25,7 +25,7 @@ namespace HeroesApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("HeroesApi.Models.HeroItem", b =>
+            modelBuilder.Entity("HeroesApi.Models.Hero", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()

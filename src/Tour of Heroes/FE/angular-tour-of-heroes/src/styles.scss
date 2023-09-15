@@ -1,6 +1,6 @@
 /* Application-wide Styles */
 
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 h1 {
   color: #369;
@@ -66,3 +66,5 @@ button {
     background-color: #003049;
   */
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

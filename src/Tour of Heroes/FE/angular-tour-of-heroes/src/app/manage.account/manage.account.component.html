@@ -4,7 +4,7 @@
             <button type="button" class="info-buttons" (click)="showUserUpdate()">Update User Info</button>
             <button type="button" class="info-buttons" (click)="showPasswordUpdate()">Update Password</button>
         </div>
-        <button type="button" class="delete-account-link">Delete Account</button>
+        <button type="button" class="delete-account-link" (click)="deleteUser()">Delete Account</button>
     </div>
     <div class="content">
         <div *ngIf="this.updateUser">

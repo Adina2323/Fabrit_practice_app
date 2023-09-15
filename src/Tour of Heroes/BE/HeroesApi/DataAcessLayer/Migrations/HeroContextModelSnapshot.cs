@@ -37,24 +37,41 @@ namespace DataAcessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(500000000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Health")
                         .HasColumnType("int");
 
-                    b.Property<string>("HeroPicture")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Heroes", (string)null);
+                    b.ToTable("Heroes");
+                });
+
+            modelBuilder.Entity("DataAcessLayer.Models.HeroItemPower", b =>
+                {
+                    b.Property<long>("HeroId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PowerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.HasKey("HeroId", "PowerId");
+
+                    b.HasIndex("PowerId");
+
+                    b.ToTable("HeroItemPowers", (string)null);
                 });
 
             modelBuilder.Entity("DataAcessLayer.Models.Image", b =>
@@ -65,12 +82,41 @@ namespace DataAcessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Url")
+                    b.Property<long>("HeroId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images", (string)null);
+                    b.HasIndex("HeroId");
+
+                    b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("DataAcessLayer.Models.Power", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("PowerType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PowerTypeAsString")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Powers");
                 });
 
             modelBuilder.Entity("DataAcessLayer.Models.User", b =>
@@ -91,9 +137,6 @@ namespace DataAcessLayer.Migrations
                     b.Property<long?>("HeroId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("LastActive")
                         .HasColumnType("datetime2");
 
@@ -104,6 +147,9 @@ namespace DataAcessLayer.Migrations
                     b.Property<byte[]>("Password")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<int?>("ProfilePictureId")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("SaltPassword")
                         .HasColumnType("varbinary(max)");
 
@@ -113,7 +159,68 @@ namespace DataAcessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.HasIndex("HeroId");
+
+                    b.HasIndex("ProfilePictureId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("DataAcessLayer.Models.HeroItemPower", b =>
+                {
+                    b.HasOne("DataAcessLayer.Models.HeroItem", "Hero")
+                        .WithMany("Powers")
+                        .HasForeignKey("HeroId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAcessLayer.Models.Power", "Power")
+                        .WithMany("HeroPowers")
+                        .HasForeignKey("PowerId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Hero");
+
+                    b.Navigation("Power");
+                });
+
+            modelBuilder.Entity("DataAcessLayer.Models.Image", b =>
+                {
+                    b.HasOne("DataAcessLayer.Models.HeroItem", "Hero")
+                        .WithMany("Images")
+                        .HasForeignKey("HeroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hero");
+                });
+
+            modelBuilder.Entity("DataAcessLayer.Models.User", b =>
+                {
+                    b.HasOne("DataAcessLayer.Models.HeroItem", "Hero")
+                        .WithMany()
+                        .HasForeignKey("HeroId");
+
+                    b.HasOne("DataAcessLayer.Models.Image", "ProfilePicture")
+                        .WithMany()
+                        .HasForeignKey("ProfilePictureId");
+
+                    b.Navigation("Hero");
+
+                    b.Navigation("ProfilePicture");
+                });
+
+            modelBuilder.Entity("DataAcessLayer.Models.HeroItem", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("Powers");
+                });
+
+            modelBuilder.Entity("DataAcessLayer.Models.Power", b =>
+                {
+                    b.Navigation("HeroPowers");
                 });
 #pragma warning restore 612, 618
         }

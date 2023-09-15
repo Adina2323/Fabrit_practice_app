@@ -20,6 +20,12 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './auth/auth.guard';
 import { ManageAccountComponent } from './manage.account/manage.account.component';
 import { JwtAtuthenticationInterceptor } from './interceptors/jwt-authetication-interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HomeComponent } from './home/home.component';
+import { SendEmailComponent } from './send-email/send-email.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -43,7 +49,9 @@ export function emailGetter() {
     UploadComponent,
     LoginComponent,
     RegisterComponent,
-    ManageAccountComponent
+    ManageAccountComponent,
+    HomeComponent,
+    SendEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -54,11 +62,14 @@ export function emailGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        //emailGetter:emailGetter,
         allowedDomains: ["localhost:44380"],
         disallowedRoutes: []
       }
-    })
+    }),
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatCheckboxModule
   ],
   providers: [AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtAtuthenticationInterceptor, multi: true }],

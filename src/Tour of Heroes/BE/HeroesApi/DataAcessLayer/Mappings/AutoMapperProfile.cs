@@ -13,9 +13,12 @@ namespace DataAcessLayer.Mappings
     {
         public AutoMapperProfile() 
         {
+           
             CreateMap<User, UserUpdateDTO>().ReverseMap();
             CreateMap<User, LoginDTO>().ReverseMap();
             CreateMap<User, RegisterDTO>().ReverseMap();
+            CreateMap<Power, PowerDTO>().ReverseMap();
+            CreateMap<Power, PowerShowDTO>().ReverseMap();
         }
     }
 }

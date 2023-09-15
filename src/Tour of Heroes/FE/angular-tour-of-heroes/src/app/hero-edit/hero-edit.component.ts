@@ -38,4 +38,6 @@ export class HeroEditComponent {
       this.heroService.updateHero(this.hero).subscribe(() => this.goBack());
     }
   }
+
+
 }

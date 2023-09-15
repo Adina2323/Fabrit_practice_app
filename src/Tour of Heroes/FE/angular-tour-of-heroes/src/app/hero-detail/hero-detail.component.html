@@ -2,7 +2,11 @@
   <div *ngIf="hero">
     <div class="profile-card">
       <a>
-        <img [src]="hero.heroPicture" auto=format fit=crop w=2250 q=80 />
+        <img [src]="hero.picture" auto=format fit=crop w=2250 q=80 />  
+        <button class="choose-hero-button" type="button" (click)="chooseHero()">Choose Hero</button>
+        <button class="edit-button" type="button" routerLink="/edit/{{hero.id}}"> Edit Hero </button>
+        <button class="goback-button" type="button" (click)="goBack()">Go Back</button>
+        <button class="goback-button" type="button" (click)="delete()">Delete</button>
       </a>
       <div class="profile-bio">
         <h1>{{ hero.name }}</h1>
@@ -14,9 +18,11 @@
         <p><strong>Health: </strong>{{ hero.health }}</p>
 
         <p><strong>Armour: </strong>{{ hero.armour }}</p>
-        <button class="choose-hero-button" type="button">Choose Hero</button>
-        <button class="edit-button" type="button" routerLink="/edit/{{hero.id}}"> Edit Hero </button>
-        <button class="goback-button" type="button" (click)="goBack()">Go Back</button>
+        <p><strong>Powers: </strong> </p>
+        <p *ngFor="let power of hero.powers"> ∞{{ power }}</p>
+
+        
+
 
       </div>
     </div>

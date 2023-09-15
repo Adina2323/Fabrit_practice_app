@@ -16,6 +16,8 @@ using System.Drawing;
 using System.Security.Cryptography;
 using BusinessLogicLayer.Token;
 using BusinessLogicLayer.Email;
+using Microsoft.Win32;
+using BusinessLogicLayer;
 
 namespace HeroesApi.Controllers
 {
@@ -27,27 +29,31 @@ namespace HeroesApi.Controllers
         private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
         private readonly IEmailService _emailService;
+        private readonly IHeroService _heroService;
 
         public UsersController(
             IUserService userService, 
             IMapper mapper,
             ITokenService tokenService,
-            IEmailService emailService )
+            IEmailService emailService,
+            IHeroService heroService)
         {
             _userService = userService;
             _mapper = mapper;
             _tokenService = tokenService;
             _emailService = emailService;
+            _heroService = heroService;
         }
-        //[HttpGet]
-        //[Authorize]
-        //public ActionResult<string> GetEmailOfCurrentUser() 
-        //{
-        //    var email = HttpContext.User.Claims.First(c => c.Type == "Email").Value;
-        //    return Ok(email);
-        //}
 
-        [HttpGet]
+        [HttpGet("email")]
+        [Authorize(Policy = "RequireLoggedIn")]
+        public ActionResult<string> GetEmailOfCurrentUser()
+        {
+            var email = HttpContext.User.Claims.First(c => c.Type == "Email").Value;
+            return Ok(email);
+        }
+
+        [HttpGet("users")]
         public async Task<IActionResult> GetUsersAsync()
         {
             var users = await _userService.GetUsersAsync();
@@ -95,7 +101,6 @@ namespace HeroesApi.Controllers
             try
             {
                 var currentUserEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-                Console.Write(currentUserEmail);
                 await _userService.UpdateUser(user, currentUserEmail);
             }
             catch (DbUpdateConcurrencyException)
@@ -106,16 +111,71 @@ namespace HeroesApi.Controllers
             return NoContent();
         }
 
-        //[HttpPut("choose-hero")]
+        [HttpDelete("delete-user")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DeleteUserAsync(string email)
+        {
+            try
+            {
+                await _userService.DeleteUserAsync(email);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            return Ok();
+
+        }
+
+        [HttpPost("send-invite")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SendEmail(string email, string name)
+        {
+            try
+            {
+                var inviteMail = new InviteMailDTO
+                {
+                    EmailTo = email,
+                    ReceiverName = name,
+                    Body = "New invitation" +
+                   "<p>Hello \n You have been invited to our site.</p>" +
+                   "<p>See you<a href= 'http://localhost:4200' > here </ a ></p> ",
+                    Subject = "Welcome to Heroes App!",
+                };
+                await _emailService.SendEmailAsync(inviteMail);
+                return Ok();
+            }
+            catch
+            {
+                throw;
+            }
+            return NotFound();
+        }
+
+        [HttpPut("choose-hero")]
         //[Authorize(Policy = "RequireLoggedIn")]
-        //public async Task<IActionResult> ChooseHeroAsync(string email, HeroItem hero)
-        //{
-        //    var user = await _userService.GetUserByEmailAsync(email);
-        //    if (user == null)
-        //    {
-        //        return NoContent();
-        //    }
+        public async Task ChooseHeroAsync([FromBody]ChooseHeroDTO chooseHeroDTO)
+        {
+            await _heroService.AssignHerotoUser(chooseHeroDTO.Email, chooseHeroDTO.HeroId);
+        }
+
+        [HttpGet("user-picture")]
+        public async Task<IActionResult> GetHerofUser(string email)
+        {
+            var user = await _userService.GetUserByEmailAsync(email);
+            if (user == null)
+            {
+                return Ok(user);
+            }
+            var hero = await _heroService.GetHeroByIdAsync((long)user.HeroId);
+            var heroShow = new HeroDisplayDto
+            {
+                Name = hero.Name,
+                Picture =await  _heroService.GetPictureOfHero(hero.Id)
+            };
+            return Ok(heroShow);
             
-        //}
+        }
+
     }
 }

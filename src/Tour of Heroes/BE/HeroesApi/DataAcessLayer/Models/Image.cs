@@ -10,9 +10,16 @@ namespace DataAcessLayer.Models
 {
     public class Image
     {
-        public long Id { get; set; }
+        [Key]
+        public int Id { get; set; }
 
         [Required]
         public string? Path { get; set; }
+
+        public long HeroId { get; set; }
+
+        public HeroItem? Hero { get; set; }
+
+        public bool IsMain { get; set; } = false;
     }
 }

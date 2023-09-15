@@ -1,0 +1,32 @@
+<div class="heroes-container">
+    <div *ngIf="this.loggedIn == true && hero">
+      <div class="profile-card">
+        <a>
+          <img [src]="hero.picture" auto=format fit=crop w=2250 q=80 />  
+        </a>
+        <div class="profile-bio">
+          <h1>{{ hero.name }}</h1>
+  
+          <p><strong>This is who you are today! </strong> {{ email }}</p>
+          <p>If you dont like the hero, choose one from the heroes tab or create a completely new one using the button bellow!</p>
+          <button type="button" class="clear" title="add hero" routerLink="/create">CreateHero</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.loggedIn == false">
+        <div class="profile-card">
+          <a>
+            <img  class="unknown" src="https://wallpapers.com/images/hd/shadow-of-the-bat-1600-x-900-wallpaper-mmp1mnw325pmqd82.jpg" auto=format fit=crop w=2250 q=80 />  
+          </a>
+          <div class="profile-bio">
+            <h1>{{ email }}</h1>
+            <h2><strong>An known figure appeared around us. </strong></h2>
+    
+       
+            <p>You have no hero assigned. You can choose one from the list of heroes or you can make your own</p>
+            <button type="button" class="clear" title="add hero" routerLink="/create">CreateHero</button>
+          </div>
+        </div>
+      </div>
+
+  </div>

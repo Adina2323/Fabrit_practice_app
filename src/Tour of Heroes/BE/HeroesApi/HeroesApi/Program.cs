@@ -11,11 +11,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BusinessLogicLayer.Token;
 using BusinessLogicLayer.Email;
-using BusinessLogicLayer.Image;
+using BusinessLogicLayer.Images;
 using BusinessLogicLayer.Configuration;
 using Microsoft.Extensions.FileProviders;
 using BusinessLogicLayer.AuthService;
 using System.Security.Claims;
+using DataAcessLayer.Repositories.Images;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,8 @@ builder.Services.AddScoped<IHeroService, HeroService>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-//builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 

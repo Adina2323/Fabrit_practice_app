@@ -1,7 +1,7 @@
 <div class="heroes-container">
   <div *ngFor="let hero of heroes">
     <div class="hero-item">
-      <div class="hero-card"><img class="hero-img" [src]=heroLink(hero) alt="Hero Image">
+      <div class="hero-card"><img class="hero-img" [src]="hero.picture" alt="Hero Image">
         <div class="hero-content">
           <h1 class="card-header">
             {{hero.name}}
@@ -19,8 +19,4 @@
 
   </div>
 
-</div>
-
-<div>
-  <button type="button" class="clear" title="add hero" routerLink="/create">CreateHero</button>
 </div>

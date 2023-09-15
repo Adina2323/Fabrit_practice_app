@@ -35,6 +35,14 @@ namespace DataAcessLayer.Repositories.Users
             return user;
         }
 
+        public async Task<long> GetIdByEmailAsync(string? email)
+        {
+            var user = await _userContext.Users
+                .Where(user => user.Email == email).AsNoTracking()
+                .FirstOrDefaultAsync();
+            return user.Id;
+        }
+
         public async Task<User> AddUserAsync(User user)
         {
             _userContext.Users
@@ -122,10 +130,20 @@ namespace DataAcessLayer.Repositories.Users
                  .FirstOrDefaultAsync();
         }
 
-        //public async Task<User?> SetHeroForUser(User user, long id)
-        //{
-        //    user.HeroId = id;
+        public async Task DeleteUser(User user)
+        {
+            _userContext.Users.Remove(user);
+            await _userContext.SaveChangesAsync();
+        }
 
-        //}
+
+        public async Task<HeroItem?> GetHeroOfUser(User user)
+        {
+            var heroId = user.HeroId;
+
+            return await _userContext.Heroes.Where(e => e.Id == heroId).FirstOrDefaultAsync();
+        }
+
+        
     }
 }

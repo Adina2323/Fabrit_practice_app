@@ -58,18 +58,6 @@ namespace HeroesApi.Controllers
                 return Conflict("Email already registered");
             }
 
-            //var inviteMail = new InviteMailDTO
-            //{
-            //    EmailTo = register.Email,
-            //    ReceiverName = register.Name,
-            //    Body = "New invitation" +
-            //    "<p>Hello \n You have been invited to our private site.</p>" +
-            //    "<p>To log in, use this super secret password:'Pa$$word'</p>" +
-            //    "<p>See you<a href= 'http://localhost:4200' > here </ a ></p> ",
-            //    Subject = "Welcome to Heroes App!",
-            //};
-
-            //await _emailService.SendEmailAsync(inviteMail);
             await _userService.AddUserAsync(register);
             var token = _tokenService.GenerateJSONWebToken(register.Email);
 

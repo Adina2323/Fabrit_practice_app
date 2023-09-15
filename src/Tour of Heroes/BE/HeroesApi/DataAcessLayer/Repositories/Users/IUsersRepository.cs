@@ -27,5 +27,10 @@ namespace DataAcessLayer.Repositories.Users
         Task<bool> UserExistsByIdAync(long id);
 
         void ChangePassword(User user, string oldPassword, string newPassword);
+        Task DeleteUser(User user);
+
+        Task<long> GetIdByEmailAsync(string? email);
+
+        Task<HeroItem?> GetHeroOfUser(User user);
     }
 }

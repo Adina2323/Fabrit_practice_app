@@ -10,8 +10,11 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ManageAccountComponent } from './manage.account/manage.account.component';
+import { HomeComponent } from './home/home.component';
+import { SendEmailComponent } from './send-email/send-email.component';
 
 const routes: Routes = [
+  {path:'home', component:HomeComponent},
   { path: 'heroes', component: HeroesComponent },
   { path: 'dashboard', component: DashboardComponent },
   //{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -20,7 +23,8 @@ const routes: Routes = [
   { path: 'edit/:id', component: HeroEditComponent ,canActivate:[AuthGuard]},
   { path: 'register', component: RegisterComponent},
   { path: 'login', component:LoginComponent},
-  { path: 'manage-account',component:ManageAccountComponent, canActivate:[AuthGuard]}
+  { path: 'manage-account',component:ManageAccountComponent, canActivate:[AuthGuard]},
+  { path: 'sendemail', component: SendEmailComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
